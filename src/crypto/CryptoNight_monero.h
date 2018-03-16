@@ -39,7 +39,8 @@
     uint64_t tweak1_2_##part = 0; \
     if (VARIANT > 0) { \
         volatile const uint64_t a = *reinterpret_cast<const uint64_t*>(static_cast<const uint8_t*>(input) + 35 + part * size); \
-        tweak1_2_##part = (a ^ *(reinterpret_cast<const uint64_t*>(ctx->state##part) + 24)); \
+        volatile const uint64_t b = *(reinterpret_cast<const uint64_t*>(ctx->state##part) + 24); \
+        tweak1_2_##part = a ^ b; \
     }
 #endif
 
